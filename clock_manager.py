@@ -1,5 +1,6 @@
 # pip install selenium
-# You will need to install the chromium webdriver, and place it in your path
+# Add the chromedriver.exe to your environment path
+# You are good to go
 import time
 from selenium import webdriver 
 from selenium.webdriver.common.keys import Keys
