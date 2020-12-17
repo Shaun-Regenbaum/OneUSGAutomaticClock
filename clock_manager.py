@@ -10,6 +10,9 @@ from selenium.webdriver.support.ui import Select
 #User Variables:
 # Put how many hours you want here, the time will be rounded to the closest 15 minute mark:
 hours_to_clock = .25 
+# Put in your username and password to login:
+username = "username"
+password = "password" 
 
 # Global Variables:
 minutes = hours_to_clock * 60
@@ -36,9 +39,6 @@ def goToLogin():
 def login(status):
     if not status:
         return 0
-
-    username = "username"
-    password = "password" 
 
     gatech_login_username = driver.find_element_by_name("username")
     gatech_login_password = driver.find_element_by_name("password")
@@ -145,17 +145,11 @@ def goBackToMenu(status, blocks_done):
         return 0
 
 
-    
-    
-
-
-
-
 a = goToLogin()
 b = login(a)
 c = goToClock(b)
-blocks_done = clockHoursIn(c)
 
+blocks_done = clockHoursIn(c)
 
 # This is to prevent timing out:
 while blocks_done < time_blocks:
