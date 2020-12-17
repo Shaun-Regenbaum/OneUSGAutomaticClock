@@ -1,2 +1,2 @@
-*.log
-.vscode
+debug.log
+\.vscode
