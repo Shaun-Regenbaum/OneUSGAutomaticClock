@@ -1,5 +1,7 @@
+#=================================================================================================#
 # pip install selenium
 # Add the chromedriver.exe to your environment path
+
 # You are good to go
 import time
 from selenium import webdriver 
@@ -9,17 +11,22 @@ from selenium.webdriver.support.ui import Select
 
 #User Variables:
 # Put how many hours you want here, the time will be rounded to the closest 15 minute mark:
-hours_to_clock = .25 
+hours_to_clock = 10
 # Put in your username and password to login:
 username = "username"
 password = "password" 
 
+# Make sure to update this path:
+path_to_driver = "A:\Dropbox (GaTech)\Programming\Python\Chrome Driver\chromedriver"
+
+# You shouldn't need to change anything past this point (besides duo 2fa), but you do you
+#=================================================================================================#
+
 # Global Variables:
 minutes = hours_to_clock * 60
 time_blocks = round(minutes / 15)
-path_to_driver = "A:\Dropbox (GaTech)\Programming\Python\Chrome Driver\chromedriver"
 driver = webdriver.Chrome(path_to_driver)
-wait = WebDriverWait(driver, 15)
+wait = WebDriverWait(driver, 25)
 
 
 
@@ -49,7 +56,9 @@ def login(status):
     gatech_login_password.send_keys(Keys.RETURN)
     
     try:
-        print("Script will wait 15 seconds to authenticate")
+        print("Script will wait 25 seconds for you to authenticate on duo")
+        print("If you run out of time, just run the script again")
+        
         wait.until(lambda driver: driver.find_elements_by_id("duo_form"))
         return 1
     except:
@@ -145,6 +154,9 @@ def goBackToMenu(status, blocks_done):
         return 0
 
 
+#=================================================================================================#
+# The script running:
+
 a = goToLogin()
 b = login(a)
 c = goToClock(b)
@@ -159,3 +171,5 @@ while blocks_done < time_blocks:
 
 else:
     e = clockHoursOut(c)
+
+#=================================================================================================#
