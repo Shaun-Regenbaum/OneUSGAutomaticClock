@@ -11,7 +11,7 @@ from selenium.webdriver.support.ui import Select
 
 #User Variables:
 # Put how many hours you want here, the time will be rounded to the closest 15 minute mark:
-hours_to_clock = 3
+hours_to_clock = 0.75
 # Put in your username and password to login:
 username = "username"
 password = "password" 
@@ -167,11 +167,13 @@ d = clockHoursIn(c)
 
 # This is to prevent timing out:
 while blocks_done < time_blocks:
-    d = goToClock(goBackToMenu(d))
+    e = goBackToMenu(d)
+    time.sleep(15)
+    f = goToClock(e)
     # Run through every 15 minutes, the timeout happens at 20 minutes
-    time.sleep(900) 
+    time.sleep(885) 
 
 else:
-    e = clockHoursOut(c)
+    g = clockHoursOut(d)
 
 #=================================================================================================#
