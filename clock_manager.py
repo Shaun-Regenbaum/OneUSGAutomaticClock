@@ -11,7 +11,7 @@ from selenium.webdriver.support.ui import Select
 
 #User Variables:
 # Put how many hours you want here, the time will be rounded to the closest 15 minute mark:
-hours_to_clock = 10
+hours_to_clock = 3
 # Put in your username and password to login:
 username = "username"
 password = "password" 
@@ -142,7 +142,7 @@ def goBackToMenu(status, blocks_done):
 
     try:
         driver.switch_to.default_content()
-
+        wait.until(lambda driver: driver.find_element_by_id("PT_WORK_PT_BUTTON_BACK"))
         back_button = driver.find_element_by_id("PT_WORK_PT_BUTTON_BACK")
         back_button.send_keys(Keys.RETURN)
 
