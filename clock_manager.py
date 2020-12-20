@@ -25,6 +25,7 @@ path_to_driver = "A:\Dropbox (GaTech)\Programming\Python\Chrome Driver\chromedri
 # Global Variables:
 minutes = hours_to_clock * 60
 time_blocks = round(minutes / 15)
+blocks_done = 0
 driver = webdriver.Chrome(path_to_driver)
 wait = WebDriverWait(driver, 25)
 
@@ -101,7 +102,7 @@ def clockHoursIn(status):
 
         print("You Have Clocked In, Be Careful That Your Computer Does Not Turn Off")
        
-        return 0
+        return 1
     except:
         print("Error, Unable to Clock In")
         return 0
@@ -134,10 +135,11 @@ def clockHoursOut(status):
         print("Error, Unable to Clock Out")
         return 0
 
-def goBackToMenu(status, blocks_done):
+def goBackToMenu(status):
     if not status:
         return 0
 
+    global blocks_done 
     blocks_done = blocks_done + 1
 
     try:
@@ -161,11 +163,11 @@ a = goToLogin()
 b = login(a)
 c = goToClock(b)
 
-blocks_done = clockHoursIn(c)
+d = clockHoursIn(c)
 
 # This is to prevent timing out:
 while blocks_done < time_blocks:
-    c = goToClock(goBackToMenu(c, blocks_done))
+    d = goToClock(goBackToMenu(d))
     # Run through every 15 minutes, the timeout happens at 20 minutes
     time.sleep(900) 
 
