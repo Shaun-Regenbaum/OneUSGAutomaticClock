@@ -69,36 +69,47 @@ def login(status):
 def goToClock(status):
     if not status:
         return 0
-    
+
+    prevent_timeout()
+
     try:
         wait.until(lambda driver: driver.find_element_by_id("BOR_INSTALL_VW$0_row_0"))
         clock_button = driver.find_element_by_id("BOR_INSTALL_VW$0_row_0")
         clock_button.send_keys(Keys.RETURN)
+
         return 1
     except:
-        print("Error, Cannot Find Clock")
-        return 0
+        # Sometimes there is a wierd error where the clock dissappear so we just reload the page and try again:
+        driver.refresh()
+        try:
+            wait.until(lambda driver: driver.find_element_by_id("BOR_INSTALL_VW$0_row_0"))
+            clock_button = driver.find_element_by_id("BOR_INSTALL_VW$0_row_0")
+            clock_button.send_keys(Keys.RETURN)
+            return 1
+        except:
+            return 0
 
 def clockHoursIn(status):
     if not status:
         return 0
 
 
-    try:
-        wait.until(lambda driver: driver.find_element_by_id("ptifrmtgtframe"))
-        driver.switch_to.frame("ptifrmtgtframe")
+    wait.until(lambda driver: driver.find_element_by_id("ptifrmtgtframe"))
+    driver.switch_to.frame("ptifrmtgtframe")
           
-        drop_down_menu = Select(driver.find_element_by_id("TL_RPTD_TIME_PUNCH_TYPE$0"))
-        drop_down_menu.select_by_visible_text("In")
+    drop_down_menu = Select(driver.find_element_by_id("TL_RPTD_TIME_PUNCH_TYPE$0"))
+    drop_down_menu.select_by_value("1")
 
-        punch_button = driver.find_element_by_id("TL_LINK_WRK_TL_SAVE_PB$0")
-        punch_button.send_keys(Keys.RETURN)
+    punch_button = driver.find_element_by_id("TL_LINK_WRK_TL_SAVE_PB$0")
+    punch_button.send_keys(Keys.RETURN)
 
-        driver.switch_to.default_content()
+    driver.switch_to.default_content()
 
-        wait.until(lambda driver: driver.find_element_by_id("#ICOK"))
-        popup_button = driver.find_element_by_id("#ICOK")
-        popup_button.send_keys(Keys.RETURN)
+    wait.until(lambda driver: driver.find_element_by_id("#ICOK"))
+    popup_button = driver.find_element_by_id("#ICOK")
+    popup_button.send_keys(Keys.RETURN)
+    try:
+  
 
         print("You Have Clocked In, Be Careful That Your Computer Does Not Turn Off")
        
@@ -116,7 +127,7 @@ def clockHoursOut(status):
         driver.switch_to.frame("ptifrmtgtframe")
 
         drop_down_menu = Select(driver.find_element_by_id("TL_RPTD_TIME_PUNCH_TYPE$0"))
-        drop_down_menu.select_by_visible_text("Out")
+        drop_down_menu.select_by_value("2")
 
         punch_button = driver.find_element_by_id("TL_LINK_WRK_TL_SAVE_PB$0")
         punch_button.send_keys(Keys.RETURN)
@@ -142,6 +153,8 @@ def goBackToMenu(status):
     global blocks_done 
     blocks_done = blocks_done + 1
 
+    prevent_timeout()
+
     try:
         driver.switch_to.default_content()
         wait.until(lambda driver: driver.find_element_by_id("PT_WORK_PT_BUTTON_BACK"))
@@ -155,6 +168,14 @@ def goBackToMenu(status):
         print("Error, Cannot Find Back Button")
         return 0
 
+def prevent_timeout():
+    try:
+        timeout_button = driver.find_element_by_id("BOR_INSTALL_VW$0_row_0")
+        timeout_button.send_keys(Keys.RETURN)
+        print("Timeout Prevented")
+        return()
+    except:
+        return()
 
 #=================================================================================================#
 # The script running:
@@ -168,10 +189,14 @@ d = clockHoursIn(c)
 # This is to prevent timing out:
 while blocks_done < time_blocks:
     e = goBackToMenu(d)
-    time.sleep(15)
+    time.sleep(225)
+    prevent_timeout()
+    time.sleep(225)
     f = goToClock(e)
     # Run through every 15 minutes, the timeout happens at 20 minutes
-    time.sleep(885) 
+    time.sleep(225)
+    prevent_timeout()
+    time.sleep(225)
 
 else:
     g = clockHoursOut(d)
