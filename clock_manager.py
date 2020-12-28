@@ -11,13 +11,14 @@ from selenium.webdriver.support.ui import Select
 
 #User Variables:
 # Put how many hours you want here, the time will be rounded to the closest 15 minute mark:
-hours_to_clock = 0.75
+hours_to_clock = 1
 # Put in your username and password to login:
 username = "username"
 password = "password" 
 
+
 # Make sure to update this path:
-path_to_driver = "A:\Dropbox (GaTech)\Programming\Python\Chrome Driver\chromedriver"
+path_to_driver = "/Users/shaunregenbaum/Dropbox (GaTech)/Programming/Python/Work Scripts/Georgia Tech Payments/chromedriver"
 
 # You shouldn't need to change anything past this point (besides duo 2fa), but you do you
 #=================================================================================================#
@@ -48,13 +49,19 @@ def login(status):
     if not status:
         return 0
 
-    gatech_login_username = driver.find_element_by_name("username")
-    gatech_login_password = driver.find_element_by_name("password")
+    try:
+        wait.until(lambda driver: driver.find_element_by_name("username"))
+        gatech_login_username = driver.find_element_by_name("username")
+        gatech_login_password = driver.find_element_by_name("password")
 
-    gatech_login_username.send_keys(username)
-    gatech_login_password.send_keys(password)
+        gatech_login_username.send_keys(username)
+        gatech_login_password.send_keys(password)
 
-    gatech_login_password.send_keys(Keys.RETURN)
+        gatech_login_password.send_keys(Keys.RETURN)
+
+    except:
+        print("Error Cannot Find the Username/Password Form")
+        return 0
     
     try:
         print("Script will wait 25 seconds for you to authenticate on duo")
@@ -64,6 +71,7 @@ def login(status):
         return 1
     except:
         print("Error, Incorrect Username/Password")
+        print("Error, Duo Malfunction?")
         return 0
 
 def goToClock(status):
@@ -122,6 +130,8 @@ def clockHoursOut(status):
     if not status:
         return 0
 
+    prevent_timeout()
+
     try:
         wait.until(lambda driver: driver.find_element_by_id("ptifrmtgtframe"))
         driver.switch_to.frame("ptifrmtgtframe")
@@ -169,6 +179,8 @@ def goBackToMenu(status):
         return 0
 
 def prevent_timeout():
+    driver.refresh()
+    
     try:
         timeout_button = driver.find_element_by_id("BOR_INSTALL_VW$0_row_0")
         timeout_button.send_keys(Keys.RETURN)
