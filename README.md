@@ -1,4 +1,4 @@
-# OneUSGAutomaticClock (updated 1-10-21)
+# OneUSGAutomaticClock (updated 1-10-21) ⏰⏰
 This is a little script for Georgia Tech students to be able to automatically clock hours without worrying about forgetting to turn it off.
 
 It can be easily modified to work for any university in the USG system 
@@ -24,8 +24,8 @@ Finally, go to the *clock_manager.py* file and edit the User Variables to clock 
 
 Just remember, you will need to confirm on duo 2fa (two factor authentication) one time.
 
-## Help and Reach out:
-I know that getting code up and running can be very frustrating, so please if you have any problems with python or cloning the repo (or anything else) reach out to me at shaunregenbaum@gmail.com or leave an issue!
+## Help and Contact Info:
+I know that getting code up and running can be very frustrating 😓😖, so please if you have any problems with python or cloning the repo (or anything else) reach out to me at shaunregenbaum@gmail.com or leave an issue 😎😁!
 If you have any others questions at all, please reach out!
 
 ## Note: 
