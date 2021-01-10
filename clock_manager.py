@@ -98,9 +98,8 @@ def goToClock():
 
     return error_handler(element_to_find="ptifrmtgtframe", method_to_find="id", purpose="Going to the Clock")
 
+
 # This function clocks us in:
-
-
 def clockHoursIn():
 
     DRIVER.switch_to.frame("ptifrmtgtframe")
@@ -226,6 +225,7 @@ loginGT()
 goToClock()
 clockHoursIn()
 
+# This is a little thing to make sure we prevent timeouts and to keep track of how long its been
 while BLOCKS_DONE < TIME_BLOCKS:
     print(str(BLOCKS_DONE*15) + " minutes done, " +
           str(MINUTES - BLOCKS_DONE*15) + " minutes left to go.")
