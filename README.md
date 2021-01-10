@@ -17,10 +17,10 @@ Once you have python, go to any terminal and write the following two things:
 
 `pip install chromedriver_autoinstaller`
 
+Then clone the repo, for self-help click [here](https://www.howtogeek.com/451360/how-to-clone-a-github-repository/).
+
 Finally, go to the *clock_manager.py* file and edit the user_variables to clock how many hours you want. 
 ![A screenshot of the User Variables Code](Pictures\User Variables.PNG "User Variables")
-
-Otherwise, simply clone the repo, fill out the details and how many hours you want to clock in the script (*clock_manager.py*) and run the file and it'll work!
 
 Just remember, you will need to confirm on duo 2fa (two factor authentication) one time.
 
