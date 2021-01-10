@@ -5,6 +5,7 @@ It can be easily modified to work for any university in the USG system
 (If you have any questions on how to do this, feel free to reach out, I can make a fork that works for any of the universities). 
 
 You need Python 2.7+ (or 3), selenium, and chromedriver_autoinstaller.
+
 To get Python simply click [here](https://www.python.org/downloads/).
 Once you have python, go to any terminal and write the following two things:
 
