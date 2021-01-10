@@ -19,7 +19,7 @@ Once you have python, go to any terminal and write the following two things:
 
 Then clone the repo, for self-help click [here](https://www.howtogeek.com/451360/how-to-clone-a-github-repository/).
 
-Finally, go to the *clock_manager.py* file and edit the user_variables to clock how many hours you want. 
+Finally, go to the *clock_manager.py* file and edit the User Variables to clock how many hours you want. 
 ![A screenshot of the User Variables Code](https://github.com/Shaun-Regenbaum/OneUSGAutomaticClock/blob/master/Pictures/User%20Variables.PNG)
 
 Just remember, you will need to confirm on duo 2fa (two factor authentication) one time.
