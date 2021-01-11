@@ -5,12 +5,13 @@ It can be easily modified to work for any university in the USG system
 (If you have any questions on how to do this, feel free to reach out, I can make a fork that works for any of the universities). 
 
 ## Requirements:
-- Python 2.7+ (or 3+) [Find Here] (https://www.python.org)
+- Python 2.7+ (or 3.9+) [Find Here] (https://www.python.org)
 - selenium [Find Here] (https://www.selenium.dev/documentation/en/)
 - chromedriver_autoinstaller [Find Here] (https://pypi.org/project/chromedriver-autoinstaller/)
 
 ## Set-Up Instructions: 
 To get Python simply click [here](https://www.python.org/downloads/).
+**Make sure to install Python 3.9 or Later**
 Once you have python, go to any terminal and write the following two things:
 
 `pip install selenium`
