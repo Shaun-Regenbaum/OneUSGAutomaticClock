@@ -14,9 +14,9 @@ To get Python simply click [here](https://www.python.org/downloads/).
 **Make sure to install Python 3.9 or Later**
 Once you have python, go to any terminal and write the following two things:
 
-`pip install selenium`
+`pip3 install selenium`
 
-`pip install chromedriver_autoinstaller`
+`pip3 install chromedriver_autoinstaller`
 
 Then clone the repo. For self-help on how to clone a repo click [here](https://www.howtogeek.com/451360/how-to-clone-a-github-repository/), otherwise reach out and I will help you!
 
