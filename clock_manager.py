@@ -184,8 +184,6 @@ def double_clock_handler():
         WAIT.until(lambda DRIVER: DRIVER.find_element_by_id("#ICOK"))
         popup_button = DRIVER.find_element_by_id("#ICOK")
         popup_button.send_keys(Keys.RETURN)
-        print("You may (not 100%) have double clocked, be careful to have one clock out for every clock in.")
-        print("...")
         return 0
 
     except (NoSuchElementException, TimeoutException):
