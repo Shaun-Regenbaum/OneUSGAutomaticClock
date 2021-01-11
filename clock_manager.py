@@ -78,9 +78,12 @@ def loginGT():
     submit_button = DRIVER.find_element_by_name("submit")
     submit_button.click()
 
+    print("...")
+    print("...")
     print("Script will wait 25 seconds for you to authenticate on duo")
     print("If you run out of time, just run the script again")
     print("...")
+
     return error_handler(element_to_find="duo_form", method_to_find="id", purpose="Logging In")
 
 
@@ -247,6 +250,7 @@ clockHoursIn()
 while BLOCKS_DONE < TIME_BLOCKS:
     print(str(BLOCKS_DONE*15) + " minutes done, roughly " +
           str(MINUTES - BLOCKS_DONE*15) + " minutes left to go.")
+    print("...")
     prevent_timeout()
     time.sleep(900)
     if BLOCKS_DONE == TIME_BLOCKS:
