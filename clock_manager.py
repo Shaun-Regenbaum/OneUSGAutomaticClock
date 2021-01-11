@@ -15,7 +15,7 @@ from selenium.common.exceptions import NoSuchElementException
 
 # User Variables (THINGS YOU NEED TO CHANGE):
 #   Put how many hours you want here, the time will be rounded to the closest 15 minute mark:
-HOURS_TO_CLOCK = 4
+HOURS_TO_CLOCK = 2
 #   Put in your USERNAME and PASSWORD to login:
 USERNAME = "username"
 PASSWORD = "password"
@@ -80,6 +80,7 @@ def loginGT():
 
     print("Script will wait 25 seconds for you to authenticate on duo")
     print("If you run out of time, just run the script again")
+    print("...")
     return error_handler(element_to_find="duo_form", method_to_find="id", purpose="Logging In")
 
 
@@ -116,6 +117,7 @@ def clockHoursIn():
     double_clock_handler()
 
     print("You Have Clocked In, Be Careful That Your Computer Does Not Turn Off.")
+    print("...")
 
     return error_handler(element_to_find="ptifrmtgtframe", method_to_find="id", purpose="Clocking In")
 
@@ -145,8 +147,12 @@ def clockHoursOut():
         print("Failed, Unable to Clock Out.")
         print("NOTICE: Please Manually Clock Out To Avoid Issues")
         print("If this error continues, please raise an issue on Github")
+        print("...")
 
         if not DEBUG_MODE:
+            print("Will quit in 10 minutes, please MANUALLY CLOCK OUT")
+            print("...")
+            time.sleep(600)
             DRIVER.quit()
         else:
             print("Debug Mode:")
@@ -163,6 +169,7 @@ def prevent_timeout():
         timeout_button = DRIVER.find_element_by_id("BOR_INSTALL_VW$0_row_0")
         timeout_button.send_keys(Keys.RETURN)
         print("Timeout Prevented")
+        print("...")
         return 1
     except (NoSuchElementException, TimeoutException):
         return 1
@@ -174,7 +181,8 @@ def double_clock_handler():
         WAIT.until(lambda DRIVER: DRIVER.find_element_by_id("#ICOK"))
         popup_button = DRIVER.find_element_by_id("#ICOK")
         popup_button.send_keys(Keys.RETURN)
-        print("You have double clocked seemingly, make sure to have one clock out for every clock in.")
+        print("You may (not 100%) have double clocked, be careful to have one clock out for every clock in.")
+        print("...")
         return 0
 
     except (NoSuchElementException, TimeoutException):
@@ -207,6 +215,7 @@ def error_handler(element_to_find, method_to_find="id", purpose="Default, Please
     except (NoSuchElementException, TimeoutException) as error:
         print("The Element was not found, this means OneUsg made some changes.")
         print("If this error continues, please raise an issue on Github.")
+        print("...")
 
         if not DEBUG_MODE:
             DRIVER.quit()
