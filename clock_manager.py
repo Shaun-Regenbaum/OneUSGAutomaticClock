@@ -15,7 +15,7 @@ from selenium.common.exceptions import NoSuchElementException
 
 # User Variables (THINGS YOU NEED TO CHANGE):
 #   Put how many hours you want here, the time will be rounded to the closest 15 minute mark:
-HOURS_TO_CLOCK = .5
+HOURS_TO_CLOCK = 4
 #   Put in your USERNAME and PASSWORD to login:
 USERNAME = "username"
 PASSWORD = "password"
@@ -113,10 +113,6 @@ def clockHoursIn():
 
     DRIVER.switch_to.default_content()
 
-    WAIT.until(lambda DRIVER: DRIVER.find_element_by_id("#ICOK"))
-    popup_button = DRIVER.find_element_by_id("#ICOK")
-    popup_button.send_keys(Keys.RETURN)
-
     print("You Have Clocked In, Be Careful That Your Computer Does Not Turn Off.")
 
     return error_handler(element_to_find="ptifrmtgtframe", method_to_find="id", purpose="Clocking In")
@@ -136,10 +132,6 @@ def clockHoursOut():
         punch_button.send_keys(Keys.RETURN)
 
         DRIVER.switch_to.default_content()
-
-        WAIT.until(lambda driver: driver.find_element_by_id("#ICOK"))
-        popup_button = DRIVER.find_element_by_id("#ICOK")
-        popup_button.send_keys(Keys.RETURN)
 
         print("You Have Clocked Out")
         DRIVER.quit()
