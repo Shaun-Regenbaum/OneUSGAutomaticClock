@@ -113,6 +113,8 @@ def clockHoursIn():
 
     DRIVER.switch_to.default_content()
 
+    double_clock_handler()
+
     print("You Have Clocked In, Be Careful That Your Computer Does Not Turn Off.")
 
     return error_handler(element_to_find="ptifrmtgtframe", method_to_find="id", purpose="Clocking In")
@@ -132,6 +134,8 @@ def clockHoursOut():
         punch_button.send_keys(Keys.RETURN)
 
         DRIVER.switch_to.default_content()
+
+        double_clock_handler()
 
         print("You Have Clocked Out")
         DRIVER.quit()
@@ -160,6 +164,19 @@ def prevent_timeout():
         timeout_button.send_keys(Keys.RETURN)
         print("Timeout Prevented")
         return 1
+    except (NoSuchElementException, TimeoutException):
+        return 1
+
+
+# This function checks to see if the popup for double-clocking comes up
+def double_clock_handler():
+    try:
+        WAIT.until(lambda DRIVER: DRIVER.find_element_by_id("#ICOK"))
+        popup_button = DRIVER.find_element_by_id("#ICOK")
+        popup_button.send_keys(Keys.RETURN)
+        print("You have double clocked seemingly, make sure to have one clock out for every clock in.")
+        return 0
+
     except (NoSuchElementException, TimeoutException):
         return 1
 
@@ -219,10 +236,10 @@ clockHoursIn()
 
 # This is a little thing to make sure we prevent timeouts and to keep track of how long its been
 while BLOCKS_DONE < TIME_BLOCKS:
-    print(str(BLOCKS_DONE*15) + " minutes done, " +
+    print(str(BLOCKS_DONE*15) + " minutes done, roughly " +
           str(MINUTES - BLOCKS_DONE*15) + " minutes left to go.")
     prevent_timeout()
-    time.sleep(300)
+    time.sleep(900)
     if BLOCKS_DONE == TIME_BLOCKS:
         break
     BLOCKS_DONE = BLOCKS_DONE + 1
