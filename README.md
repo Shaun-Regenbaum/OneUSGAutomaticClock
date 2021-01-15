@@ -32,5 +32,5 @@ I know that getting code up and running can be very frustrating 😓😖, so ple
 If you have any others questions at all, please reach out!
 
 ## Note: 
-If you want to get the chromedriver manually, or are having problems, you can download the appropriate chromedriver for your OS from [here](https://sites.google.com/a/chromium.org/chromedriver/home). You will need to manually add this driver to your path and and modify the code to correctly reference it [as such](https://chromedriver.chromium.org/getting-started).
+If you want to get the chromedriver manually, or are having problems, you can download the appropriate chromedriver for your OS from [here](https://sites.google.com/a/chromium.org/chromedriver/home). You will need to manually add this driver to your environment path and and modify the code to correctly reference it [as such](https://chromedriver.chromium.org/getting-started).
 
