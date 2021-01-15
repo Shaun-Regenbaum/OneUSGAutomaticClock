@@ -25,7 +25,7 @@ Finally, go to the *clock_manager.py* file and edit the User Variables to clock 
 
 After all that, just run the script, sit back and relax (while doing your work).
 
-Just remember, you will need to confirm on duo 2fa (two factor authentication) one time.
+Just note, you will need to confirm on duo 2fa (two factor authentication) one time.
 
 ## Help and Contact Info:
 I know that getting code up and running can be very frustrating 😓😖, so please if you have any problems with python or cloning the repo (or anything else) reach out to me at shaunregenbaum@gmail.com or leave an issue 😎😁!
