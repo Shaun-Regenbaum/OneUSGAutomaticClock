@@ -8,14 +8,18 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import ElementNotInteractableException
 
 #=================================================================================================#
 
 # User Variables (THINGS YOU NEED TO CHANGE):
 #   Put how many hours you want here, the time will be rounded to the closest 15 minute mark:
-HOURS_TO_CLOCK = 2
+HOURS_TO_CLOCK = 6
 #   Put in your USERNAME and PASSWORD to login:
 USERNAME = "username"
 PASSWORD = "password"
@@ -38,6 +42,7 @@ TIME_BLOCKS = round(MINUTES / 15)
 BLOCKS_DONE = 0
 DRIVER = webdriver.Chrome()
 WAIT = WebDriverWait(DRIVER, 25)
+MINI_WAIT = WebDriverWait(DRIVER, 5)
 DEBUG_MODE = False
 
 #=================================================================================================#
@@ -48,14 +53,15 @@ DEBUG_MODE = False
 def goToOneUSG():
     DRIVER.get("https://hcm-sso.onehcm.usg.edu/")
 
-    return error_handler(element_to_find="//*[@id='https_idp_gatech_edu_idp_shibboleth']/div/div/a", method_to_find="xpath", purpose="Going to One Usg")
+    return error_handler(element_to_find="//*[@id='https_idp_gatech_edu_idp_shibboleth']/div/div/a/img", method_to_find="xpath", purpose="Going to One Usg")
 
 
 # Selecting GT:
 def selectGT():
-    gt_option = DRIVER.find_element_by_xpath(
-        "//*[@id='https_idp_gatech_edu_idp_shibboleth']/div/div/a")
-    gt_option.send_keys(Keys.RETURN)
+    # I was encountering an error occasionally, so I made a hotfix:
+    gt_option = WAIT.until(EC.element_to_be_clickable((By.XPATH,
+                                                       "//*[@id='https_idp_gatech_edu_idp_shibboleth']/div/div/a/img")))
+    gt_option.click()
 
     return error_handler(element_to_find="username", method_to_find="name", purpose="Selecting GT")
 
@@ -112,12 +118,14 @@ def clockHoursIn():
         DRIVER.find_element_by_id("TL_RPTD_TIME_PUNCH_TYPE$0"))
     drop_down_menu.select_by_value("1")
 
+    time.sleep(5)  # This just smooths out some glitches with selenium
     punch_button = DRIVER.find_element_by_id("TL_LINK_WRK_TL_SAVE_PB$0")
+
     punch_button.send_keys(Keys.RETURN)
+    double_clock_handler()
 
     DRIVER.switch_to.default_content()
-
-    double_clock_handler()
+    confirmation_handler()
 
     print("You Have Clocked In, Be Careful That Your Computer Does Not Turn Off.")
     print("...")
@@ -136,6 +144,7 @@ def clockHoursOut():
         drop_down_menu.select_by_value("2")
 
         punch_button = DRIVER.find_element_by_id("TL_LINK_WRK_TL_SAVE_PB$0")
+        time.sleep(5)  # This just smooths out some glitches with selenium
         punch_button.send_keys(Keys.RETURN)
 
         DRIVER.switch_to.default_content()
@@ -171,9 +180,22 @@ def prevent_timeout():
     try:
         timeout_button = DRIVER.find_element_by_id("BOR_INSTALL_VW$0_row_0")
         timeout_button.send_keys(Keys.RETURN)
+
         print("Timeout Prevented")
         print("...")
+
         return 1
+    except (NoSuchElementException, TimeoutException):
+        return 1
+
+
+def confirmation_handler():
+    try:
+        WAIT.until(lambda DRIVER: DRIVER.find_element_by_id("#ICOK"))
+        popup_button = DRIVER.find_element_by_id("#ICOK")
+        popup_button.send_keys(Keys.RETURN)
+        return 0
+
     except (NoSuchElementException, TimeoutException):
         return 1
 
@@ -181,9 +203,10 @@ def prevent_timeout():
 # This function checks to see if the popup for double-clocking comes up
 def double_clock_handler():
     try:
-        WAIT.until(lambda DRIVER: DRIVER.find_element_by_id("#ICOK"))
-        popup_button = DRIVER.find_element_by_id("#ICOK")
+        MINI_WAIT.until(lambda DRIVER: DRIVER.find_element_by_id("#ICCancel"))
+        popup_button = DRIVER.find_element_by_id("#ICCancel")
         popup_button.send_keys(Keys.RETURN)
+        print("You were about to double clock, we prevented that.")
         return 0
 
     except (NoSuchElementException, TimeoutException):
@@ -213,7 +236,7 @@ def error_handler(element_to_find, method_to_find="id", purpose="Default, Please
                 print("Debug Mode:")
             return 0
 
-    except (NoSuchElementException, TimeoutException) as error:
+    except (NoSuchElementException, TimeoutException, ElementNotInteractableException) as error:
         print("The Element was not found, this means OneUsg made some changes.")
         print("If this error continues, please raise an issue on Github.")
         print("...")
