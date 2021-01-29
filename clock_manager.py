@@ -16,15 +16,16 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotInteractableException
 
 #=================================================================================================#
-
 # User Variables (THINGS YOU NEED TO CHANGE):
+
 #   Put how many hours you want here, the time will be rounded to the closest 15 minute mark:
-HOURS_TO_CLOCK = 1
+HOURS_TO_CLOCK = 0.25
 #   Put in your USERNAME and PASSWORD to login:
 USERNAME = "username"
 PASSWORD = "password"
 
 # (By the way for newcomers, variables with CAPITAL LETTERS imply they are a global variable.)
+
 #=================================================================================================#
 #=================================================================================================#
 
@@ -32,7 +33,6 @@ PASSWORD = "password"
 
 #=================================================================================================#
 #=================================================================================================#
-
 
 # Global Variables:
 chromedriver_autoinstaller.install()
@@ -146,11 +146,13 @@ def clockHoursOut():
 
         time.sleep(5)  # This just smooths out some glitches with selenium
         punch_button = DRIVER.find_element_by_id("TL_LINK_WRK_TL_SAVE_PB$0")
+        time.sleep(5)  # This just smooths out some glitches with selenium
         punch_button.send_keys(Keys.RETURN)
 
         DRIVER.switch_to.default_content()
         confirmation_handler()
 
+        time.sleep(5)  # This just smooths out some glitches with selenium
         print("You Have Clocked Out")
         DRIVER.quit()
         return 1
@@ -194,6 +196,7 @@ def confirmation_handler():
         WAIT.until(lambda DRIVER: DRIVER.find_element_by_id("#ICOK"))
         popup_button = DRIVER.find_element_by_id("#ICOK")
         popup_button.send_keys(Keys.RETURN)
+        print("Succesfully Confirmed.")
         return 1
 
     except (NoSuchElementException, TimeoutException):
@@ -276,7 +279,10 @@ while BLOCKS_DONE < TIME_BLOCKS:
           str(MINUTES - BLOCKS_DONE*15) + " minutes left to go.")
     print("...")
     prevent_timeout()
-    time.sleep(900)
+    for i in range(15):
+        # This should be 60 for a full minute, but Im accounting for slow down else where.
+        time.sleep(58)
+        print(".")
     if BLOCKS_DONE == TIME_BLOCKS:
         break
     BLOCKS_DONE = BLOCKS_DONE + 1
