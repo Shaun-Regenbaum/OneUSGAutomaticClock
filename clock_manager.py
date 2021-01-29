@@ -283,9 +283,10 @@ while BLOCKS_DONE < TIME_BLOCKS:
         # This should be 60 for a full minute, but Im accounting for slow down else where.
         time.sleep(58)
         print(".")
+    BLOCKS_DONE = BLOCKS_DONE + 1
     if BLOCKS_DONE == TIME_BLOCKS:
         break
-    BLOCKS_DONE = BLOCKS_DONE + 1
+
 
 else:
     clockHoursOut()
