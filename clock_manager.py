@@ -19,11 +19,10 @@ from selenium.common.exceptions import ElementNotInteractableException
 
 # User Variables (THINGS YOU NEED TO CHANGE):
 #   Put how many hours you want here, the time will be rounded to the closest 15 minute mark:
-HOURS_TO_CLOCK = 6
+HOURS_TO_CLOCK = 1
 #   Put in your USERNAME and PASSWORD to login:
 USERNAME = "username"
 PASSWORD = "password"
-
 
 #=================================================================================================#
 #=================================================================================================#
