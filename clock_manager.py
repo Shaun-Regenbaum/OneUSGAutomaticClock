@@ -24,6 +24,7 @@ HOURS_TO_CLOCK = 1
 USERNAME = "username"
 PASSWORD = "password"
 
+# (By the way for newcomers, variables with CAPITAL LETTERS imply they are a global variable.)
 #=================================================================================================#
 #=================================================================================================#
 
@@ -70,9 +71,8 @@ def goToGT():
     DRIVER.get("https://idpproxy.usg.edu/asimba/sso/web?asid=H--OuU7aI8l1f5IFN1anGQ&saml_organization_id=https://idp.gatech.edu/idp/shibboleth")
     return 1
 
+
 # This function logs us in once we are at the GT login Page:
-
-
 def loginGT():
     gatech_login_username = DRIVER.find_element_by_name("username")
     gatech_login_password = DRIVER.find_element_by_name("password")
@@ -121,9 +121,11 @@ def clockHoursIn():
     punch_button = DRIVER.find_element_by_id("TL_LINK_WRK_TL_SAVE_PB$0")
 
     punch_button.send_keys(Keys.RETURN)
-    double_clock_handler()
 
     DRIVER.switch_to.default_content()
+    # To handle the case where you are already clocked in:
+    double_clock_handler()
+    # To handle the confirmation screen that shows up after you clock in:
     confirmation_handler()
 
     print("You Have Clocked In, Be Careful That Your Computer Does Not Turn Off.")
@@ -142,13 +144,12 @@ def clockHoursOut():
             DRIVER.find_element_by_id("TL_RPTD_TIME_PUNCH_TYPE$0"))
         drop_down_menu.select_by_value("2")
 
-        punch_button = DRIVER.find_element_by_id("TL_LINK_WRK_TL_SAVE_PB$0")
         time.sleep(5)  # This just smooths out some glitches with selenium
+        punch_button = DRIVER.find_element_by_id("TL_LINK_WRK_TL_SAVE_PB$0")
         punch_button.send_keys(Keys.RETURN)
 
         DRIVER.switch_to.default_content()
-
-        double_clock_handler()
+        confirmation_handler()
 
         print("You Have Clocked Out")
         DRIVER.quit()
@@ -193,10 +194,11 @@ def confirmation_handler():
         WAIT.until(lambda DRIVER: DRIVER.find_element_by_id("#ICOK"))
         popup_button = DRIVER.find_element_by_id("#ICOK")
         popup_button.send_keys(Keys.RETURN)
-        return 0
+        return 1
 
     except (NoSuchElementException, TimeoutException):
-        return 1
+        print("Couldn't find the confirmation screen?")
+        return 0
 
 
 # This function checks to see if the popup for double-clocking comes up
@@ -206,13 +208,14 @@ def double_clock_handler():
         popup_button = DRIVER.find_element_by_id("#ICCancel")
         popup_button.send_keys(Keys.RETURN)
         print("You were about to double clock, we prevented that.")
-        return 0
+        return 1
 
     except (NoSuchElementException, TimeoutException):
-        return 1
+        return 0
 
 
 # This function handles errors and returns either one or zero to indicate success or failure:
+# There are probably a lot more cases to handle, but its fine for now.
 def error_handler(element_to_find, method_to_find="id", purpose="Default, Please Specify when Invoking error_handler"):
     try:
         if method_to_find == "xpath":
@@ -267,6 +270,7 @@ goToClock()
 clockHoursIn()
 
 # This is a little thing to make sure we prevent timeouts and to keep track of how long its been
+# Its just a loop that refreshes the page every fifteen minutes and keeps track of how much time has passed.
 while BLOCKS_DONE < TIME_BLOCKS:
     print(str(BLOCKS_DONE*15) + " minutes done, roughly " +
           str(MINUTES - BLOCKS_DONE*15) + " minutes left to go.")
