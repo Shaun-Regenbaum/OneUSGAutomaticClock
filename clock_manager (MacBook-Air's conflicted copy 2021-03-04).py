@@ -19,10 +19,10 @@ from selenium.common.exceptions import ElementNotInteractableException
 # User Variables (THINGS YOU NEED TO CHANGE):
 
 #   Put how many hours you want here, the time will be rounded to the closest 15 minute mark:
-HOURS_TO_CLOCK = 4
+HOURS_TO_CLOCK = 1
 #   Put in your USERNAME and PASSWORD to login:
-USERNAME = "username"
-PASSWORD = "password"
+USERNAME = "sregenbaum3"
+PASSWORD = "K^bjb*#2!^4S"
 
 # (By the way for newcomers, variables with CAPITAL LETTERS imply they are a global variable.)
 
@@ -291,8 +291,6 @@ while BLOCKS_DONE < TIME_BLOCKS:
 
 else:
     clockHoursOut()
-try:
-    clockHoursOut()
-except:
-    print("Make sure you were clocked out please.")
+
+clockHoursOut()
 #=================================================================================================#
