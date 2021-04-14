@@ -1,4 +1,4 @@
-# ⏰⏰ OneUSGAutomaticClock ⏰⏰
+# ⏰ OneUSGAutomaticClock ⏰
 ## 🚧🚧CURRENT STATUS: NOT WORKING🚧🚧
 ### Will be fixed by *April 23rd*
 This is a little script for Georgia Tech students to be able to automatically clock hours without worrying about forgetting to turn it off.
