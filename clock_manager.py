@@ -92,77 +92,68 @@ def loginGT():
     return error_handler(element_to_find="duo_form", method_to_find="id", purpose="Logging In")
 
 
-# This function goes through the menus to get us to the clock:
+# This function goes through the menus to click the Time and Absence button:
 def goToClock():
 
     WAIT.until(lambda DRIVER: DRIVER.find_element_by_id(
-        "win0divPTNUI_LAND_REC_GROUPLET$4"))
+        "win0divPTNUI_LAND_REC_GROUPLET$7"))
 
     time_and_absence_button = DRIVER.find_element_by_id(
-        "win0divPTNUI_LAND_REC_GROUPLET$4")
+        "win0divPTNUI_LAND_REC_GROUPLET$7")
     time_and_absence_button.send_keys(Keys.RETURN)
 
-    clock_button = DRIVER.find_element_by_id("BOR_INSTALL_VW$0_row_0")
-    clock_button.send_keys(Keys.RETURN)
-
-    return error_handler(element_to_find="ptifrmtgtframe", method_to_find="id", purpose="Going to the Clock")
+    return error_handler(element_to_find="win0groupletPTNUI_LAND_REC_GROUPLET$3_iframe", method_to_find="id", purpose="Going to the Clock")
 
 
 # This function clocks us in:
 def clockHoursIn():
+    DRIVER.switch_to.frame("win0groupletPTNUI_LAND_REC_GROUPLET$3_iframe")
+    MINI_WAIT.until(lambda DRIVER: DRIVER.find_element_by_id(
+        "TL_RPTD_SFF_WK_GROUPBOX$PIMG"))
+    clocking_options_menu = DRIVER.find_element_by_id(
+        "TL_RPTD_SFF_WK_GROUPBOX$PIMG")
+    clocking_options_menu.send_keys(Keys.RETURN)
 
-    DRIVER.switch_to.frame("ptifrmtgtframe")
+    MINI_WAIT.until(lambda DRIVER: DRIVER.find_element_by_id(
+        "TL_RPTD_SFF_WK_TL_ACT_PUNCH1"))
+    clock_in_button = DRIVER.find_element_by_id("TL_RPTD_SFF_WK_TL_ACT_PUNCH1")
 
-    drop_down_menu = Select(
-        DRIVER.find_element_by_id("TL_RPTD_TIME_PUNCH_TYPE$0"))
-    drop_down_menu.select_by_value("1")
+    clock_in_button.send_keys(Keys.RETURN)
 
-    time.sleep(5)  # This just smooths out some glitches with selenium
-    punch_button = DRIVER.find_element_by_id("TL_LINK_WRK_TL_SAVE_PB$0")
-
-    punch_button.send_keys(Keys.RETURN)
+    double_clock_handler()
 
     DRIVER.switch_to.default_content()
-    # To handle the case where you are already clocked in:
-    double_clock_handler()
-    # To handle the confirmation screen that shows up after you clock in:
-    confirmation_handler()
 
     print("You Have Clocked In, Be Careful That Your Computer Does Not Turn Off.")
     print("...")
 
-    return error_handler(element_to_find="ptifrmtgtframe", method_to_find="id", purpose="Clocking In")
+    return error_handler(element_to_find="win0groupletPTNUI_LAND_REC_GROUPLET$3_iframe", method_to_find="id", purpose="Clocking In")
 
 
 # This function clocks us out:
 def clockHoursOut():
-
     try:
-        DRIVER.switch_to.frame("ptifrmtgtframe")
-
-        drop_down_menu = Select(
-            DRIVER.find_element_by_id("TL_RPTD_TIME_PUNCH_TYPE$0"))
-        drop_down_menu.select_by_value("2")
-
-        time.sleep(5)  # This just smooths out some glitches with selenium
-        punch_button = DRIVER.find_element_by_id("TL_LINK_WRK_TL_SAVE_PB$0")
-        time.sleep(5)  # This just smooths out some glitches with selenium
-        punch_button.send_keys(Keys.RETURN)
-
-        DRIVER.switch_to.default_content()
-        confirmation_handler()
+        DRIVER.switch_to.frame("win0groupletPTNUI_LAND_REC_GROUPLET$3_iframe")
+        MINI_WAIT.until(lambda DRIVER: DRIVER.find_element_by_id(
+            "TL_RPTD_SFF_WK_GROUPBOX$PIMG"))
+        clocking_options_menu = DRIVER.find_element_by_id(
+            "TL_RPTD_SFF_WK_GROUPBOX$PIMG")
+        clocking_options_menu.send_keys(Keys.RETURN)
+        WAIT.until(lambda DRIVER: DRIVER.find_element_by_id(
+            "TL_RPTD_SFF_WK_TL_ACT_PUNCH3"))
+        clock_out_button = DRIVER.find_element_by_id(
+            "TL_RPTD_SFF_WK_TL_ACT_PUNCH3")
+        clock_out_button.send_keys(Keys.RETURN)
 
         time.sleep(5)  # This just smooths out some glitches with selenium
         print("You Have Clocked Out")
         DRIVER.quit()
-        return 1
 
-    except (RuntimeError, TypeError, NameError, NoSuchElementException, TimeoutException) as error:
         print("Failed, Unable to Clock Out.")
         print("NOTICE: Please Manually Clock Out To Avoid Issues")
         print("If this error continues, please raise an issue on Github")
         print("...")
-
+    except Exception as error:
         if not DEBUG_MODE:
             print("Will quit in 10 minutes, please MANUALLY CLOCK OUT")
             print("...")
@@ -171,7 +162,7 @@ def clockHoursOut():
         else:
             print("Debug Mode:")
             print(error)
-        return 0
+    return 0
 
 
 # This function prevents timeouts:
@@ -191,25 +182,16 @@ def prevent_timeout():
         return 1
 
 
-def confirmation_handler():
-    try:
-        WAIT.until(lambda DRIVER: DRIVER.find_element_by_id("#ICOK"))
-        popup_button = DRIVER.find_element_by_id("#ICOK")
-        popup_button.send_keys(Keys.RETURN)
-        print("Succesfully Confirmed.")
-        return 1
-
-    except (NoSuchElementException, TimeoutException):
-        print("Couldn't find the confirmation screen?")
-        return 0
-
-
 # This function checks to see if the popup for double-clocking comes up
 def double_clock_handler():
     try:
-        MINI_WAIT.until(lambda DRIVER: DRIVER.find_element_by_id("#ICCancel"))
-        popup_button = DRIVER.find_element_by_id("#ICCancel")
+        MINI_WAIT.until(lambda DRIVER: DRIVER.find_element_by_id("#ICOK"))
+        popup_button = DRIVER.find_element_by_id("#ICOK")
         popup_button.send_keys(Keys.RETURN)
+        MINI_WAIT.until(lambda DRIVER: DRIVER.find_element_by_id(
+            "PT_WORK_PT_BUTTON_BACK"))
+        back_button = DRIVER.find_element_by_id("PT_WORK_PT_BUTTON_BACK")
+        back_button.send_keys(Keys.RETURN)
         print("You were about to double clock, we prevented that.")
         return 1
 
@@ -262,6 +244,15 @@ def error_handler(element_to_find, method_to_find="id", purpose="Default, Please
             print(error)
         return 0
 
+    except Exception as error:
+        print("Failure with: " + purpose)
+        if not DEBUG_MODE:
+            DRIVER.quit()
+        else:
+            print("Debug Mode:")
+            print(error)
+        return 0
+
 
 #=================================================================================================#
 # The script running:
@@ -280,19 +271,19 @@ while BLOCKS_DONE < TIME_BLOCKS:
     print("...")
     prevent_timeout()
     for i in range(15):
-        # This should be 60 for a full minute, but Im accounting for slow down else where.
-        time.sleep(58)
-        print(".")
+        # This should be 60 for a full minute, but Im accounting for slow downs else where.
+        time.sleep(59)
+        print(BLOCKS_DONE*15 + i)
     BLOCKS_DONE = BLOCKS_DONE + 1
     if BLOCKS_DONE == TIME_BLOCKS:
         clockHoursOut()
         break
 
 
+# This is just another safety check to make sure we don't ever leave without clocking out first.
 else:
-    clockHoursOut()
-try:
-    clockHoursOut()
-except:
-    print("Make sure you were clocked out please.")
+    try:
+        clockHoursOut()
+    except:
+        print("Make sure you were clocked out please.")
 #=================================================================================================#
