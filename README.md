@@ -24,6 +24,7 @@ Then clone the repo. For self-help on how to clone a repo click [here](https://w
 
 Finally, go to the *clock_manager.py* file and edit the User Variables to clock how many hours you want. 
 ![A screenshot of the User Variables Code](https://github.com/Shaun-Regenbaum/OneUSGAutomaticClock/blob/master/Pictures/User%20Variables.PNG)
+Also, just to be clear: I have ZERO acess to your username or password, everything is done locally on your machine!
 
 After all that, just run the script, sit back and relax (while doing your work).
 
