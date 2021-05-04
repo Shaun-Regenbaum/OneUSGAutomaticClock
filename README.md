@@ -5,7 +5,7 @@ This is a little script for Georgia Tech students to be able to automatically cl
 It can be easily modified to work for any university in the USG system 
 (If you have any questions on how to do this, feel free to reach out, I can make a fork that works for any of the universities). 
 
-## Requirements/Background Information (look at set-up to see how to get everything working):
+## Requirements (Set-Up will show you how to get everything):
 - Python 3.9+ [Find Here](https://www.python.org)
 - selenium [Find Here](https://www.selenium.dev/documentation/en/)
 - chromedriver_autoinstaller [Find Here](https://pypi.org/project/chromedriver-autoinstaller/)
