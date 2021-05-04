@@ -5,14 +5,12 @@ This is a little script for Georgia Tech students to be able to automatically cl
 It can be easily modified to work for any university in the USG system 
 (If you have any questions on how to do this, feel free to reach out, I can make a fork that works for any of the universities). 
 
-## Requirements:
-#### I.e. What does the script use?
+## Requirements (what does the script use?):
 - Python 3.9+ [Find Here](https://www.python.org)
 - selenium [Find Here](https://www.selenium.dev/documentation/en/)
 - chromedriver_autoinstaller [Find Here](https://pypi.org/project/chromedriver-autoinstaller/)
 
 ## Set-Up Instructions: 
-#### I.e. How do I get this working?
 To get Python simply click [here](https://www.python.org/downloads/).
 **Make sure to install Python 3.9 or Later**
 Once you have python, go to any terminal and write the following two things:
