@@ -5,12 +5,14 @@ This is a little script for Georgia Tech students to be able to automatically cl
 It can be easily modified to work for any university in the USG system 
 (If you have any questions on how to do this, feel free to reach out, I can make a fork that works for any of the universities). 
 
-## Requirements (Set-Up will show you how to get everything):
+## Requirements:
+#### I.e. What does the script use?
 - Python 3.9+ [Find Here](https://www.python.org)
 - selenium [Find Here](https://www.selenium.dev/documentation/en/)
 - chromedriver_autoinstaller [Find Here](https://pypi.org/project/chromedriver-autoinstaller/)
 
 ## Set-Up Instructions: 
+#### I.e. How do I get this working?
 To get Python simply click [here](https://www.python.org/downloads/).
 **Make sure to install Python 3.9 or Later**
 Once you have python, go to any terminal and write the following two things:
@@ -29,6 +31,7 @@ After all that, just run the script, sit back and relax (while doing your work).
 Just note, you will need to confirm on duo 2fa (two factor authentication) one time.
 
 ## Help and Contact Info:
+#### I.e. I need help?
 I know that getting code up and running can be very frustrating 😓😖, so please if you have any problems with python or cloning the repo (or anything else) reach out to me at shaunregenbaum@gmail.com or leave an issue 😎😁!
 If you have any others questions at all, please reach out!
 
