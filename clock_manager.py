@@ -50,8 +50,6 @@ DEBUG_MODE = False
 # Functions, each step gets its own function:
 
 # This is a function to try go straight to the GT clock's iframe (IN ACTIVE USE):
-
-
 def goToGTClock():
     DRIVER.get("https://selfservice.hprod.onehcm.usg.edu/psc/hprodsssso_newwin/HCMSS/HRMS/c/TL_EMPLOYEE_FL.TL_RPT_TIME_FLU.GBL?EMPDASHBD=Y&tW=1&tH=1&ICDoModeless=1&ICGrouplet=3&bReload=y&nWidth=236&nHeight=163&TL_JOB_CHAR=0")
     return True
@@ -65,9 +63,8 @@ def selectGT():
     gt_option.click()
     return checkExistence(element_to_find="username", method_to_find="name", purpose="Selecting GT")
 
+
 # This function logs us in once we are at the GT login Page:
-
-
 def loginGT():
     gatech_login_username = DRIVER.find_element_by_name("username")
     gatech_login_password = DRIVER.find_element_by_name("password")
@@ -136,22 +133,21 @@ def clockHoursOut():
         print("If this error continues, please raise an issue on Github")
         print("...")
 
+
 # This function checks to make sure you did duo correctly:
-
-
 def checkLogin():
     checkExistence("TL_RPTD_SFF_WK_GROUPBOX$PIMG")
 
 
+# This function opens the clocing menu:
 def openMenu():
     checkExistence("TL_RPTD_SFF_WK_GROUPBOX$PIMG")
     clock_menu = DRIVER.find_element_by_id("TL_RPTD_SFF_WK_GROUPBOX$PIMG")
     clock_menu.send_keys(Keys.RETURN)
     return checkExistence(element_to_find="TL_RPTD_SFF_WK_TL_ACT_PUNCH1", purpose="Clocking In")
 
+
 # This function prevents timeouts:
-
-
 def prevent_timeout():
     DRIVER.refresh()
 
@@ -209,7 +205,7 @@ def double_clock_handler():
         return False
 
 
-# This function handles errors and returns either one or zero to indicate success or failure:
+# This function handles errors and returns either true or false to indicate success or failure:
 # There are probably a lot more cases to handle, but its fine for now.
 def checkExistence(element_to_find, method_to_find="id", purpose="Default, Please Specify when Invoking checkExistence", passOnError=False):
     try:
@@ -299,6 +295,8 @@ else:
         clockHoursOut()
     except:
         print("Make sure you were clocked out please.")
+
+
 #=================================================================================================#
 # DEPRECATED STUFF (may want to use in the future:)
 # Go To One USG (DEPRECATED):
