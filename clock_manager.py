@@ -1,3 +1,4 @@
+import sys
 import time
 # This is just to prevent annoying debugging messages so that you can clearly see what the program is doing in the console.
 import logging
@@ -20,7 +21,7 @@ from selenium.common.exceptions import ElementNotInteractableException
 # User Variables (THINGS YOU NEED TO CHANGE):
 
 #   Put how many hours you want here, the time will be rounded to the closest 15 minute mark:
-HOURS_TO_CLOCK = 0.15
+DEFAULT_HOURS_TO_CLOCK = 0.15
 #   Put in your USERNAME and PASSWORD to login:
 USERNAME = "username"
 PASSWORD = "password"
@@ -37,6 +38,12 @@ PASSWORD = "password"
 
 # Global Variables:
 chromedriver_autoinstaller.install()
+
+HOURS_TO_CLOCK = DEFAULT_HOURS_TO_CLOCK
+try:
+    HOURS_TO_CLOCK = float(sys.argv[1])
+except (ValueError, IndexError):
+    pass
 
 MINUTES = HOURS_TO_CLOCK * 60
 TIME_BLOCKS = round(MINUTES / 15)
@@ -266,6 +273,8 @@ def checkExistence(element_to_find, method_to_find="id", purpose="Default, Pleas
 
 #=================================================================================================#
 # The script running:
+
+print('\nClocking {0} hours...\n'.format(HOURS_TO_CLOCK))
 
 goToGTClock()
 selectGT()

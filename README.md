@@ -24,7 +24,11 @@ Then clone the repo. For self-help on how to clone a repo click [here](https://w
 Finally, go to the *clock_manager.py* file and edit the User Variables to clock how many hours you want. 
 ![A screenshot of the User Variables Code](https://github.com/Shaun-Regenbaum/OneUSGAutomaticClock/blob/master/Pictures/User%20Variables.PNG)
 
-After all that, just run the script, sit back and relax (while doing your work).
+After all that, just run the script, sit back and relax (while doing your work):
+
+```python
+python clock_manager.py <hours>
+```
 
 Just note, you will need to confirm on duo 2fa (two factor authentication) one time.
 
