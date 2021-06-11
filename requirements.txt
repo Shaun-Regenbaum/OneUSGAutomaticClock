@@ -1,0 +1,2 @@
+chromedriver-autoinstaller==0.2.2
+selenium==3.141.0

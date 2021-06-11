@@ -11,26 +11,21 @@ It can be easily modified to work for any university in the USG system
 - chromedriver_autoinstaller [Find Here](https://pypi.org/project/chromedriver-autoinstaller/)
 
 ## Set-Up Instructions: 
-To get Python simply click [here](https://www.python.org/downloads/).
-**Make sure to install Python 3.9 or Later**
-Once you have python, go to any terminal and write the following two things:
 
-`pip3 install selenium`
+1. Open a terminal window.
+1. Type the following to clone the repo and switch to the project directory
+    * `git clone https://github.com/Shaun-Regenbaum/OneUSGAutomaticClock.git && cd OneUSGAutomaticClock` 
+    * For self-help on how to clone a repo click [here](https://www.howtogeek.com/451360/how-to-clone-a-github-repository/), otherwise reach out and I will help you (seriously I will sit down with you and guide you through it)!
+1. Download and install Python from [here](https://www.python.org/downloads/).
+    * **Make sure to install Python 3.9 or Later**
+1. Once you have python type the following to install the needed dependencies:
+    * `pip3 install -r requirements.txt`
+1. Finally, run the script from the command line, then sit back and relax (while doing your work):
+    * `python python clock_manager.py -hrs <hours> -u <gt_username>`
 
-`pip3 install chromedriver_autoinstaller`
+**Note: You will be prompted for your GT password**
 
-Then clone the repo. For self-help on how to clone a repo click [here](https://www.howtogeek.com/451360/how-to-clone-a-github-repository/), otherwise reach out and I will help you (seriously I will sit down with you and guide you through it)!
-
-Finally, go to the *clock_manager.py* file and edit the User Variables to clock how many hours you want. 
-![A screenshot of the User Variables Code](https://github.com/Shaun-Regenbaum/OneUSGAutomaticClock/blob/master/Pictures/User%20Variables.PNG)
-
-After all that, either run the script manually or call it from the command line, then sit back and relax (while doing your work):
-
-```python
-python clock_manager.py <hours>
-```
-
-Just note, you will need to confirm on duo 2fa (two factor authentication) one time.
+**Note: You will also need to confirm on duo 2fa (two factor authentication) one time**
 
 ## Help and Contact Info:
 I know that getting code up and running can be very frustrating 😓😖, so please if you have any problems with python or cloning the repo (or anything else) reach out to me at shaunregenbaum@gmail.com or leave an issue 😎😁!
