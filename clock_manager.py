@@ -134,7 +134,7 @@ def clockHoursOut():
     clock_out_button.send_keys(Keys.RETURN)
 
     last_action_text = DRIVER.find_element_by_id(
-        "TL_WEB_CLOCK_WK_DESCR50_1")[0].get_attribute("innerHTML")
+        "TL_WEB_CLOCK_WK_DESCR50_1").get_attribute("innerHTML")
     if "Out" in last_action_text:
         time.sleep(5)  # This just smooths out some glitches with selenium
         print("You Have Clocked Out")
