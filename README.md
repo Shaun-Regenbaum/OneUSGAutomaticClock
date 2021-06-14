@@ -35,4 +35,4 @@ If you have any others questions at all, please reach out!
 If you want to get the chromedriver manually, or are having problems, you can download the appropriate chromedriver for your OS from [here](https://sites.google.com/a/chromium.org/chromedriver/home). You will need to manually add this driver to your environment path and and modify the code to correctly reference it [as such](https://chromedriver.chromium.org/getting-started).
 
 ## Thanks: 
-Shout out to Max Karpawich and Kendall Morgan for their awesome contributions! 
+Shout out to [Max Karpawich](https://github.com/karpawich) and [Kendall Morgan](https://github.com/kendallm) for their awesome contributions! 
