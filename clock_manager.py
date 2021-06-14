@@ -1,5 +1,9 @@
 import sys
 import time
+import os
+import argparse
+import getpass 
+
 # This is just to prevent annoying debugging messages so that you can clearly see what the program is doing in the console.
 import logging
 logging.getLogger("urllib3").setLevel(logging.ERROR)
@@ -18,14 +22,21 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotInteractableException
 
 #=================================================================================================#
-# User Variables (THINGS YOU NEED TO CHANGE):
+#    This block sets up everything that needs user input
 
-#   Put how many hours you want here, the time will be rounded to the closest 15 minute mark:
 DEFAULT_HOURS_TO_CLOCK = 0.15
-#   Put in your USERNAME and PASSWORD to login:
-USERNAME = "username"
-PASSWORD = "password"
+parser = argparse.ArgumentParser(description='OneUSGAutomaticClock')
+parser.add_argument('-u', '--username', help="GT Username", required=True)
+parser.add_argument('-hrs', '--hours', type=float, help="Hours to clock", required=False, default=DEFAULT_HOURS_TO_CLOCK)
+args = vars(parser.parse_args())
 
+USERNAME = args['username']
+PASSWORD = getpass.getpass(prompt='GT Password: ', stream=None)
+HOURS_TO_CLOCK = args['hours']
+
+if PASSWORD == "":
+    print("Be sure to set your password.\n")
+    sys.exit(1)
 # (By the way for newcomers, variables with CAPITAL LETTERS imply they are a global variable.)
 
 #=================================================================================================#
@@ -38,12 +49,6 @@ PASSWORD = "password"
 
 # Global Variables:
 chromedriver_autoinstaller.install()
-
-HOURS_TO_CLOCK = DEFAULT_HOURS_TO_CLOCK
-try:
-    HOURS_TO_CLOCK = float(sys.argv[1])
-except (ValueError, IndexError):
-    pass
 
 MINUTES = HOURS_TO_CLOCK * 60
 TIME_BLOCKS = round(MINUTES / 15)
@@ -129,7 +134,7 @@ def clockHoursOut():
     clock_out_button.send_keys(Keys.RETURN)
 
     last_action_text = DRIVER.find_element_by_id(
-        "TL_WEB_CLOCK_WK_DESCR50_1")[0].get_attribute("innerHTML")
+        "TL_WEB_CLOCK_WK_DESCR50_1").get_attribute("innerHTML")
     if "Out" in last_action_text:
         time.sleep(5)  # This just smooths out some glitches with selenium
         print("You Have Clocked Out")
