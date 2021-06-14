@@ -21,7 +21,7 @@ It can be easily modified to work for any university in the USG system
 1. Once you have python type the following to install the needed dependencies:
     * `pip3 install -r requirements.txt`
 1. Finally, run the script from the command line, then sit back and relax (while doing your work):
-    * `python python clock_manager.py -hrs <hours> -u <gt_username>`
+    * `python3 clock_manager.py -hrs <hours> -u <gt_username>`
 
 **Note: You will be prompted for your GT password**
 
