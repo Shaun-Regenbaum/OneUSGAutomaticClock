@@ -14,7 +14,7 @@ It can be easily modified to work for any university in the USG system
 
 1. Open a terminal window.
 1. Type the following to clone the repo and switch to the project directory
-    * `git clone https://github.com/Shaun-Regenbaum/OneUSGAutomaticClock.git && cd OneUSGAutomaticClock` 
+    * `git clone https://github.com/Shaun-Regenbaum/OneUSGAutomaticClock.git` then `cd OneUSGAutomaticClock` 
     * For self-help on how to clone a repo click [here](https://www.howtogeek.com/451360/how-to-clone-a-github-repository/), otherwise reach out and I will help you (seriously I will sit down with you and guide you through it)!
 1. Download and install Python from [here](https://www.python.org/downloads/).
     * **Make sure to install Python 3.9 or Later**
