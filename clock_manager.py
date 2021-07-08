@@ -34,6 +34,10 @@ USERNAME = args['username']
 PASSWORD = getpass.getpass(prompt='GT Password: ', stream=None)
 HOURS_TO_CLOCK = args['hours']
 
+if HOURS_TO_CLOCK < DEFAULT_HOURS_TO_CLOCK:
+    print(f"[NOTE] Hours less than {DEFAULT_HOURS_TO_CLOCK} unsupported")
+    print(f"[NOTE] See issue: https://github.com/Shaun-Regenbaum/OneUSGAutomaticClock/issues/6")
+    print(f"[NOTE] Using {DEFAULT_HOURS_TO_CLOCK} hours")
 if PASSWORD == "":
     print("Be sure to set your password.\n")
     sys.exit(1)
@@ -135,11 +139,14 @@ def clockHoursOut():
 
     last_action_text = DRIVER.find_element_by_id(
         "TL_WEB_CLOCK_WK_DESCR50_1").get_attribute("innerHTML")
-    if "Out" in last_action_text:
-        time.sleep(5)  # This just smooths out some glitches with selenium
+    
+    try:
+        WAIT.until(
+            lambda d: "Out" in d.find_element_by_id("TL_WEB_CLOCK_WK_DESCR50_1").get_attribute("innerHTML")
+        )
         print("You Have Clocked Out")
         DRIVER.quit()
-    else:
+    except:
         print("Failed, Unable to Clock Out.")
         print("NOTICE: Please Manually Clock Out To Avoid Issues")
         print("If this error continues, please raise an issue on Github")
