@@ -3,6 +3,7 @@
 ### Page has been updated and CSS selectors need to be updated.
 It should only take about 1-2 hours of work to get this working again, but I sadly don't have the time right now.
 
+## What is this?
 This is a little script for Georgia Tech students to be able to automatically clock hours without worrying about forgetting to turn it off.
 
 It can be easily modified to work for any university in the USG system 
